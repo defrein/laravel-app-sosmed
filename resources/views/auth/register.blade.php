@@ -30,7 +30,7 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="confirm-password" class="text-dark">Confirm Password:</label><br>
-                        <input type="text" name="password_confirmation" id="confirm-password" class="form-control">
+                        <input type="password" name="password_confirmation" id="confirm-password" class="form-control">
                         @error('password_confirmation')
                             <span class="d-block fs-6 text-danger mt-2">{{ $message }}</span>
                         @enderror
