@@ -10,14 +10,22 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 @auth
+                @if(Auth::user()->is_admin)
+                <li class="nav-item">
+                    <a class="nav-link {{ Route::is('admin.dashboard')? 'active' :'' }}" href="{{ route('admin.dashboard') }}">Admin</a>
+                </li>
+                @endif
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('profile')? 'active' :'' }}" href="{{ route('profile') }}">{{ Auth::user()->name }}</a>
                     </li>
                     <li class="nav-item">
-                        <form action="{{ route('logout') }}" method="post">
-                            @csrf
-                            <button class="btn btn-sm btn-secondary" type="submit">Logout</button>
-                        </form>
+                        <div class="nav-link">
+
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <button class="btn btn-sm btn-secondary" type="submit">Logout</button>
+                            </form>
+                        </div>
                     </li>
                 @endauth
 
