@@ -14,15 +14,14 @@
             <div class="d-flex">
                 <a class="mx-2" href="{{ route('ideas.show', $idea->id) }}">view</a>
                 @auth
-                @can('idea.edit', $idea)
-
-                <a class="mx-2" href="{{ route('ideas.edit', $idea->id) }}">edit</a>
-                <form action="{{ route('ideas.destroy', $idea->id) }}" method="post">
-                    @csrf
-                    @method('delete')
-                    <button class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                </form>
-                @endcan
+                    @can('update', $idea)
+                        <a class="mx-2" href="{{ route('ideas.edit', $idea->id) }}">edit</a>
+                        <form action="{{ route('ideas.destroy', $idea->id) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        </form>
+                    @endcan
                 @endauth
             </div>
 
