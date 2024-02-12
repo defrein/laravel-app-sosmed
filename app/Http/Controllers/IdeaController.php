@@ -28,14 +28,16 @@ class IdeaController extends Controller
     }
 
     public function edit(Idea $idea){
-        if(auth()->id() !== $idea->user_id){
-            abort(404);
-        }
+        // if(auth()->id() !== $idea->user_id){
+        //     abort(404);
+        // }
+        $this->authorize('idea.edit', $idea);
         $editing = true;
 
         return view("ideas.show", compact("idea", "editing"));
     }
     public function update(Idea $idea){
+        $this->authorize('idea.update', $idea);
         request()->validate([
             'content' => 'required|max:255'
         ]);
@@ -47,9 +49,10 @@ class IdeaController extends Controller
 
     public function destroy(Idea $idea){
 
-        if(auth()->id() !== $idea->user_id){
-            abort(404);
-        }
+        // if(auth()->id() !== $idea->user_id){
+        //     abort(404);
+        // }
+        $this->authorize('idea.delete', $idea);
         $idea->delete();
 
         return redirect()->route('dashboard')->with('success','Idea deleted successfully!');

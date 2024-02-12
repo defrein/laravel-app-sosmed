@@ -1,33 +1,38 @@
-
 <div class="card mb-2">
     <div class="px-3 pt-4 pb-2">
         <div class="d-flex align-items-center justify-content-between">
             <div class="d-flex align-items-center">
 
-                <img style="width:50px" class="me-2 avatar-sm rounded-circle"
-                    src="{{ $idea->user->getImageURL() }}" alt="Mario Avatar">
+                <img style="width:50px" class="me-2 avatar-sm rounded-circle" src="{{ $idea->user->getImageURL() }}"
+                    alt="Mario Avatar">
                 <div>
-                    <h5 class="card-title mb-0"><a href="{{ route('users.show', $idea->user->id) }}"> {{ $idea->user->name }}
+                    <h5 class="card-title mb-0"><a href="{{ route('users.show', $idea->user->id) }}">
+                            {{ $idea->user->name }}
                         </a></h5>
                 </div>
             </div>
-            <form action="{{ route('ideas.destroy', $idea->id) }}" method="post">
-                @csrf
-                @method('delete')
-                <div>
-                    <a class="mx-2" href="{{ route('ideas.edit', $idea->id) }}">edit</a>
-                    <a class="mx-2" href="{{ route('ideas.show', $idea->id) }}">view</a>
+            <div class="d-flex">
+                <a class="mx-2" href="{{ route('ideas.show', $idea->id) }}">view</a>
+                @auth
+                @can('idea.edit', $idea)
+
+                <a class="mx-2" href="{{ route('ideas.edit', $idea->id) }}">edit</a>
+                <form action="{{ route('ideas.destroy', $idea->id) }}" method="post">
+                    @csrf
+                    @method('delete')
                     <button class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                </div>
+                </form>
+                @endcan
+                @endauth
+            </div>
 
 
-            </form>
 
         </div>
     </div>
 
     <div class="card-body">
-        @if ($editing?? false)
+        @if ($editing ?? false)
             <form action="{{ route('ideas.update', $idea->id) }}" method="post">
                 @csrf
                 @method('put')
