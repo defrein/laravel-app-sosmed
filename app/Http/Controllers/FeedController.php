@@ -20,7 +20,7 @@ class FeedController extends Controller
         // $ideas =  Idea::orderBy('created_at', 'DESC');
 
         if(request()->has("search")){
-            $ideas = $ideas->where("content","like", '%'. request()->get("search") . '%');
+            $ideas = $ideas->search(request("search", ''));
         }
 
         return view(

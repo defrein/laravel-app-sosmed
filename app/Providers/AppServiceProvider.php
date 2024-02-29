@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,6 +24,12 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrapFive();
 
-        app()->setLocale("id");
+        View::share(
+            'topUsers',
+
+            User::withCount('ideas')
+                ->orderBy('ideas_count', 'DESC')
+                ->limit(5)->get()
+        );
     }
 }
