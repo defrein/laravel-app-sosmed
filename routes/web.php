@@ -22,6 +22,11 @@ use App\Http\Controllers\IdeaLikeController;
 */
 Route::get('/', [DashboardController::class,'index'])->name('dashboard');
 
+Route::get('/lang/{lang}', function($lang){
+    app()->setLocale($lang);
+    session()->put('locale', $lang);
+    return redirect()->route('dashboard');
+})->name('lang');
 
 
 Route::group(['prefix'=> 'ideas/', 'as' => 'ideas.'], function () {
