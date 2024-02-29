@@ -6,7 +6,7 @@
             @include('admin.shared.left-sidebar')
         </div>
         <div class="col-9">
-            <h1>Users</h1>
+            <h1>Ideas</h1>
 
             <table class="table table-bordered mt-3">
                 <thead class="table-dark">
@@ -22,7 +22,8 @@
                     @foreach ($ideas as $idea)
                         <tr>
                             <td>{{ $idea->id }}</td>
-                            <td>{{ $idea->user->name }}</td>
+                            <td><a href="{{ route('users.show', $idea->user->id) }}">{{ $idea->user->name }}</a> </td>
+
                             <td>{{ $idea->content }}</td>
                             <td>{{ $idea->created_at->toDateString() }}</td>
                             <td>
